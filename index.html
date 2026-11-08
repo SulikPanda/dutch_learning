@@ -3,532 +3,366 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dutch Learning</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#203b65">
+<title>Dutch Learning A1+</title>
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f3f5fa;
-  color: #20243a;
-}
-
-header {
-  background: #243b65;
-  color: white;
-  padding: 24px;
-  text-align: center;
-}
-
-header h1 {
-  margin: 0 0 8px;
-}
-
-.container {
-  max-width: 750px;
-  margin: 25px auto;
-  padding: 15px;
-}
-
-.stats {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.stat {
-  flex: 1;
-  background: white;
-  padding: 18px;
-  border-radius: 12px;
-  text-align: center;
-}
-
-.stat strong {
-  display: block;
-  font-size: 25px;
-  color: #243b65;
-  margin-top: 5px;
-}
-
-nav {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-nav button {
-  flex: 1;
-  padding: 13px 5px;
-  border: none;
-  border-radius: 9px;
-  background: #dce3f0;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-nav button.active {
-  background: #243b65;
-  color: white;
-}
-
-.card {
-  background: white;
-  padding: 35px 20px;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 4px 15px #0000000b;
-}
-
-.english {
-  color: #777;
-  font-size: 17px;
-}
-
-.dutch {
-  font-size: 34px;
-  font-weight: bold;
-  margin: 20px 0;
-  color: #243b65;
-}
-
-button {
-  font-family: inherit;
-}
-
-.action {
-  border: none;
-  border-radius: 9px;
-  padding: 13px 20px;
-  background: #243b65;
-  color: white;
-  cursor: pointer;
-  margin: 5px;
-  font-size: 15px;
-}
-
-.action:hover {
-  opacity: .85;
-}
-
-.secondary {
-  background: #e7ebf3;
-  color: #243b65;
-}
-
-.hidden {
-  display: none;
-}
-
-.options {
-  display: grid;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.option {
-  padding: 15px;
-  border: 2px solid #dce3f0;
-  background: white;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 17px;
-}
-
-.option:hover {
-  border-color: #243b65;
-}
-
-.correct {
-  background: #d9f5df;
-  border-color: #35a853;
-}
-
-.wrong {
-  background: #ffe0e0;
-  border-color: #e04c4c;
-}
-
-#feedback {
-  font-weight: bold;
-  margin: 18px;
-}
-
-.progress-bar {
-  background: #dce3f0;
-  height: 10px;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-.progress-fill {
-  height: 100%;
-  background: #35a853;
-  width: 0%;
-  transition: width .3s;
-}
-
-footer {
-  text-align: center;
-  color: #888;
-  padding: 25px;
-  font-size: 13px;
-}
+*{box-sizing:border-box}
+body{margin:0;background:#f2f5fa;color:#202b40;font-family:Arial,sans-serif}
+header{background:#203b65;color:white;text-align:center;padding:25px 15px}
+header h1{margin:0 0 8px}
+header p{margin:0;color:#dce6f5}
+.container{max-width:760px;margin:auto;padding:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:18px}
+.stat,.card{background:white;border-radius:14px;padding:17px;text-align:center}
+.stat strong{display:block;font-size:24px;color:#203b65;margin-top:7px}
+nav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:17px}
+nav button{border:0;border-radius:9px;padding:12px 3px;background:#dfe6f1;color:#203b65;font-weight:bold;cursor:pointer}
+nav button.active{background:#203b65;color:white}
+button{font-family:inherit}
+.action{background:#203b65;color:white;border:0;padding:13px 18px;border-radius:9px;margin:5px;cursor:pointer}
+.secondary{background:#e8edf5;color:#203b65}
+select{padding:11px;border:1px solid #ccd5e3;border-radius:8px;background:white;max-width:100%}
+.word{font-size:34px;font-weight:bold;color:#203b65;margin:20px 0}
+.english{color:#718096}
+.hidden{display:none!important}
+.options{display:grid;gap:10px;margin:20px 0}
+.option{padding:14px;background:white;border:2px solid #dce3f0;border-radius:10px;font-size:16px;cursor:pointer}
+.option.correct{background:#d9f5df;border-color:#35a853}
+.option.wrong{background:#ffe1e1;border-color:#dc5555}
+.option:disabled{cursor:default}
+.progress{height:11px;background:#e3e9f2;border-radius:20px;overflow:hidden;margin:12px 0}
+.fill{height:100%;background:#35a853;width:0}
+.item{padding:14px 5px;border-bottom:1px solid #e7ebf1;text-align:left}
+.item strong{display:block;color:#203b65;font-size:18px;margin:5px 0}
+.badge{font-size:12px;background:#e9eff8;padding:5px 9px;border-radius:15px;color:#425878}
+#feedback{font-weight:bold;min-height:24px}
+.small{font-size:13px;color:#718096}
 </style>
 </head>
-
 <body>
 
 <header>
-  <h1>🇳🇱 Dutch Learning</h1>
-  <p>Learn Dutch step by step</p>
+<h1>🇳🇱 Dutch Learning</h1>
+<p>English → Dutch | Beginner A1+</p>
 </header>
 
 <div class="container">
 
-  <div class="stats">
-    <div class="stat">
-      Words learned
-      <strong id="learned">0</strong>
-    </div>
-    <div class="stat">
-      Quiz score
-      <strong id="score">0</strong>
-    </div>
-  </div>
+<div class="stats">
+<div class="stat">Learned<strong id="learned">0</strong></div>
+<div class="stat">Correct answers<strong id="score">0</strong></div>
+<div class="stat">Accuracy<strong id="accuracy">0%</strong></div>
+</div>
 
-  <nav>
-    <button class="active" onclick="showTab('learn',this)">
-      Learn
-    </button>
-    <button onclick="showTab('quiz',this)">
-      Quiz
-    </button>
-    <button onclick="showTab('progress',this)">
-      Progress
-    </button>
-  </nav>
+<nav>
+<button class="active" onclick="tab('learn',this)">Learn</button>
+<button onclick="tab('quiz',this)">Quiz</button>
+<button onclick="tab('phrases',this)">Phrases</button>
+<button onclick="tab('progress',this)">Progress</button>
+</nav>
 
-  <!-- LEARNING -->
+<section id="learn">
+<div class="card">
+<h2>Vocabulary</h2>
+<p class="small">Choose a category</p>
+<select id="category" onchange="setCategory()">
+<option value="All">All categories</option>
+<option value="Daily life">Daily life</option>
+<option value="Work">Work</option>
+<option value="Shopping">Shopping</option>
+<option value="Travel">Travel</option>
+<option value="Family">Family</option>
+<option value="Food">Food</option>
+</select>
+<p class="english">English</p>
+<div class="word" id="englishWord">Hello</div>
+<div id="translation" class="hidden">
+<span class="badge">Dutch</span>
+<div class="word" id="dutchWord">Hallo</div>
+</div>
+<button class="action" onclick="reveal()">Show translation</button>
+<button class="action secondary" onclick="speak()">🔊 Listen</button>
+<br>
+<button class="action secondary" onclick="move(-1)">← Previous</button>
+<button class="action" onclick="move(1)">Next →</button>
+<p id="wordCount" class="small"></p>
+</div>
+</section>
 
-  <section id="learn">
+<section id="quiz" class="hidden">
+<div class="card">
+<h2>Knowledge test</h2>
+<p class="small">Translate the English word into Dutch</p>
+<div class="word" id="question">House</div>
+<div id="options" class="options"></div>
+<p id="feedback"></p>
+<button class="action" onclick="newQuiz()">Next question →</button>
+</div>
+</section>
 
-    <div class="card">
-      <p class="english">English word</p>
-      <div class="dutch" id="word">Hello</div>
-      <p id="translation" class="hidden">
-        Dutch translation: Hallo
-      </p>
+<section id="phrases" class="hidden">
+<div class="card">
+<h2>Everyday sentences</h2>
+<p class="small">Learn how Dutch is used in real life</p>
+<div id="phraseList"></div>
+</div>
+</section>
 
-      <button class="action" onclick="reveal()">
-        Show translation
-      </button>
-
-      <button class="action secondary" onclick="speak()">
-        🔊 Listen
-      </button>
-
-      <div style="margin-top:25px">
-        <button class="action secondary" onclick="previousWord()">
-          ← Previous
-        </button>
-        <button class="action" onclick="nextWord()">
-          Next →
-        </button>
-      </div>
-
-      <p id="counter"></p>
-    </div>
-
-  </section>
-
-  <!-- QUIZ -->
-
-  <section id="quiz" class="hidden">
-
-    <div class="card">
-      <h2>Choose the correct translation</h2>
-
-      <p class="english">What is the Dutch word for:</p>
-
-      <div class="dutch" id="question">Hello</div>
-
-      <div class="options" id="options"></div>
-
-      <p id="feedback"></p>
-
-      <button class="action" onclick="nextQuestion()">
-        Next question →
-      </button>
-    </div>
-
-  </section>
-
-  <!-- PROGRESS -->
-
-  <section id="progress" class="hidden">
-
-    <div class="card">
-      <h2>Your learning progress</h2>
-
-      <p>Vocabulary completed</p>
-      <h2 id="progressText">0 / 20</h2>
-
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-
-      <p id="percentage">0% completed</p>
-
-      <button class="action secondary"
-        onclick="resetProgress()">
-        Reset progress
-      </button>
-    </div>
-
-  </section>
+<section id="progress" class="hidden">
+<div class="card">
+<h2>Your progress</h2>
+<p>Words learned</p>
+<h2 id="progressWords">0 / 60</h2>
+<div class="progress"><div class="fill" id="fill"></div></div>
+<p id="percent">0% completed</p>
+<p>Total quiz questions: <strong id="total">0</strong></p>
+<p>Correct answers: <strong id="correct">0</strong></p>
+<button class="action secondary" onclick="resetData()">Reset progress</button>
+</div>
+</section>
 
 </div>
 
-<footer>
-  Dutch Learning App · English → Dutch · A1
-</footer>
-
 <script>
-
-// VOCABULARY
-
 const words = [
-  {en:"Hello", nl:"Hallo"},
-  {en:"Good morning", nl:"Goedemorgen"},
-  {en:"Good evening", nl:"Goedenavond"},
-  {en:"Goodbye", nl:"Tot ziens"},
-  {en:"Thank you", nl:"Dank je"},
-  {en:"Please", nl:"Alsjeblieft"},
-  {en:"Yes", nl:"Ja"},
-  {en:"No", nl:"Nee"},
-  {en:"Water", nl:"Water"},
-  {en:"Food", nl:"Eten"},
-  {en:"House", nl:"Huis"},
-  {en:"Car", nl:"Auto"},
-  {en:"Book", nl:"Boek"},
-  {en:"Friend", nl:"Vriend"},
-  {en:"Family", nl:"Familie"},
-  {en:"Work", nl:"Werk"},
-  {en:"School", nl:"School"},
-  {en:"Dog", nl:"Hond"},
-  {en:"Cat", nl:"Kat"},
-  {en:"Love", nl:"Liefde"}
+["Hello","Hallo","Daily life"],
+["Good morning","Goedemorgen","Daily life"],
+["Good evening","Goedenavond","Daily life"],
+["Goodbye","Tot ziens","Daily life"],
+["Please","Alsjeblieft","Daily life"],
+["Thank you","Dank je wel","Daily life"],
+["Sorry","Sorry","Daily life"],
+["Maybe","Misschien","Daily life"],
+["Always","Altijd","Daily life"],
+["Sometimes","Soms","Daily life"],
+["Never","Nooit","Daily life"],
+["Today","Vandaag","Daily life"],
+["Tomorrow","Morgen","Daily life"],
+["Yesterday","Gisteren","Daily life"],
+["House","Huis","Daily life"],
+["Room","Kamer","Daily life"],
+["Kitchen","Keuken","Daily life"],
+["Door","Deur","Daily life"],
+["Window","Raam","Daily life"],
+["Key","Sleutel","Daily life"],
+["Family","Familie","Family"],
+["Mother","Moeder","Family"],
+["Father","Vader","Family"],
+["Brother","Broer","Family"],
+["Sister","Zus","Family"],
+["Child","Kind","Family"],
+["Friend","Vriend","Family"],
+["Husband","Man","Family"],
+["Wife","Vrouw","Family"],
+["Dog","Hond","Family"],
+["Bread","Brood","Food"],
+["Cheese","Kaas","Food"],
+["Milk","Melk","Food"],
+["Water","Water","Food"],
+["Apple","Appel","Food"],
+["Vegetables","Groenten","Food"],
+["Meat","Vlees","Food"],
+["Breakfast","Ontbijt","Food"],
+["Lunch","Lunch","Food"],
+["Dinner","Avondeten","Food"],
+["Shop","Winkel","Shopping"],
+["Price","Prijs","Shopping"],
+["Money","Geld","Shopping"],
+["Cheap","Goedkoop","Shopping"],
+["Expensive","Duur","Shopping"],
+["Receipt","Bon","Shopping"],
+["Bag","Tas","Shopping"],
+["Work","Werk","Work"],
+["Office","Kantoor","Work"],
+["Colleague","Collega","Work"],
+["Meeting","Vergadering","Work"],
+["Computer","Computer","Work"],
+["Busy","Druk","Work"],
+["Free","Vrij","Work"],
+["Train","Trein","Travel"],
+["Bus","Bus","Travel"],
+["Station","Station","Travel"],
+["Ticket","Kaartje","Travel"],
+["Bicycle","Fiets","Travel"],
+["Street","Straat","Travel"]
 ];
 
-// SAVED DATA
+const phrases = [
+["I am learning Dutch.","Ik leer Nederlands."],
+["I live in the Netherlands.","Ik woon in Nederland."],
+["I am going to work.","Ik ga naar mijn werk."],
+["Where is the supermarket?","Waar is de supermarkt?"],
+["How much does this cost?","Hoeveel kost dit?"],
+["I would like a coffee.","Ik wil graag een koffie."],
+["Can you help me?","Kunt u mij helpen?"],
+["I don't understand.","Ik begrijp het niet."],
+["Could you speak more slowly?","Kunt u langzamer spreken?"],
+["I have a question.","Ik heb een vraag."],
+["What time is it?","Hoe laat is het?"],
+["I am looking for the station.","Ik zoek het station."]
+];
 
-let learned = JSON.parse(
-  localStorage.getItem("learned") || "[]"
-);
-
-let score = Number(
-  localStorage.getItem("score") || 0
-);
-
+let learned = JSON.parse(localStorage.getItem("dl_learned")||"[]");
+let score = Number(localStorage.getItem("dl_score")||0);
+let total = Number(localStorage.getItem("dl_total")||0);
 let index = 0;
-let currentQuestion = null;
+let current = null;
 let answered = false;
 
-// TABS
-
-function showTab(tab, button) {
-  ["learn","quiz","progress"].forEach(id => {
-    document.getElementById(id)
-      .classList.toggle("hidden", id !== tab);
-  });
-
-  document.querySelectorAll("nav button")
-    .forEach(btn => btn.classList.remove("active"));
-
-  button.classList.add("active");
-
-  if (tab === "quiz") nextQuestion();
-  if (tab === "progress") updateProgress();
+function save(){
+ localStorage.setItem("dl_learned",JSON.stringify(learned));
+ localStorage.setItem("dl_score",score);
+ localStorage.setItem("dl_total",total);
+ updateStats();
 }
 
-// FLASHCARDS
-
-function displayWord() {
-  document.getElementById("word").textContent =
-    words[index].en;
-
-  document.getElementById("translation").textContent =
-    "Dutch translation: " + words[index].nl;
-
-  document.getElementById("translation")
-    .classList.add("hidden");
-
-  document.getElementById("counter").textContent =
-    `${index + 1} / ${words.length}`;
+function updateStats(){
+ document.getElementById("learned").textContent=learned.length;
+ document.getElementById("score").textContent=score;
+ document.getElementById("accuracy").textContent=
+ total ? Math.round(score/total*100)+"%" : "0%";
+ updateProgress();
 }
 
-function reveal() {
-  document.getElementById("translation")
-    .classList.remove("hidden");
-
-  const dutch = words[index].nl;
-
-  if (!learned.includes(dutch)) {
-    learned.push(dutch);
-    saveData();
-  }
+function selectedWords(){
+ const category=document.getElementById("category").value;
+ return words.filter(w=>category==="All"||w[2]===category);
 }
 
-function nextWord() {
-  index = (index + 1) % words.length;
-  displayWord();
+function displayWord(){
+ const list=selectedWords();
+ if(index>=list.length)index=0;
+ if(index<0)index=list.length-1;
+ current=list[index];
+ document.getElementById("englishWord").textContent=current[0];
+ document.getElementById("dutchWord").textContent=current[1];
+ document.getElementById("translation").classList.add("hidden");
+ document.getElementById("wordCount").textContent=
+ (index+1)+" / "+list.length+" · "+current[2];
 }
 
-function previousWord() {
-  index = (index - 1 + words.length) % words.length;
-  displayWord();
+function reveal(){
+ document.getElementById("translation").classList.remove("hidden");
+ if(!learned.includes(current[1])){
+ learned.push(current[1]);
+ save();
+ }
 }
 
-// PRONUNCIATION
-
-function speak() {
-  const text = words[index].nl;
-
-  const speech = new SpeechSynthesisUtterance(text);
-
-  speech.lang = "nl-NL";
-  speech.rate = 0.85;
-
-  speechSynthesis.cancel();
-  speechSynthesis.speak(speech);
+function move(direction){
+ index=(index+direction+selectedWords().length)%selectedWords().length;
+ displayWord();
 }
 
-// QUIZ
-
-function nextQuestion() {
-  answered = false;
-
-  currentQuestion =
-    words[Math.floor(Math.random() * words.length)];
-
-  document.getElementById("question").textContent =
-    currentQuestion.en;
-
-  document.getElementById("feedback").textContent = "";
-
-  let choices = [currentQuestion.nl];
-
-  while (choices.length < 4) {
-    const random = words[
-      Math.floor(Math.random() * words.length)
-    ].nl;
-
-    if (!choices.includes(random)) {
-      choices.push(random);
-    }
-  }
-
-  choices.sort(() => Math.random() - 0.5);
-
-  const container = document.getElementById("options");
-  container.innerHTML = "";
-
-  choices.forEach(choice => {
-    const button = document.createElement("button");
-
-    button.className = "option";
-    button.textContent = choice;
-
-    button.onclick = () => checkAnswer(button, choice);
-
-    container.appendChild(button);
-  });
+function setCategory(){
+ index=0;
+ displayWord();
 }
 
-function checkAnswer(button, choice) {
-  if (answered) return;
-
-  answered = true;
-
-  const correct = choice === currentQuestion.nl;
-
-  if (correct) {
-    score++;
-    document.getElementById("feedback").textContent =
-      "✓ Correct! Well done!";
-  } else {
-    document.getElementById("feedback").textContent =
-      "✗ Incorrect. Correct answer: " + currentQuestion.nl;
-  }
-
-  document.querySelectorAll(".option").forEach(option => {
-    if (option.textContent === currentQuestion.nl) {
-      option.classList.add("correct");
-    } else if (option === button) {
-      option.classList.add("wrong");
-    }
-    option.disabled = true;
-  });
-
-  saveData();
+function speak(text=current[1]){
+ if(!("speechSynthesis" in window)){
+ alert("Speech is not supported in this browser.");
+ return;
+ }
+ const speech=new SpeechSynthesisUtterance(text);
+ speech.lang="nl-NL";
+ speech.rate=.85;
+ speechSynthesis.cancel();
+ speechSynthesis.speak(speech);
 }
 
-// PROGRESS
-
-function updateProgress() {
-  const amount = learned.length;
-  const percent = Math.round(
-    amount / words.length * 100
-  );
-
-  document.getElementById("progressText").textContent =
-    `${amount} / ${words.length}`;
-
-  document.getElementById("progressFill").style.width =
-    percent + "%";
-
-  document.getElementById("percentage").textContent =
-    percent + "% completed";
+function newQuiz(){
+ answered=false;
+ current=words[Math.floor(Math.random()*words.length)];
+ document.getElementById("question").textContent=current[0];
+ document.getElementById("feedback").textContent="";
+ let choices=[current[1]];
+ while(choices.length<4){
+  let w=words[Math.floor(Math.random()*words.length)][1];
+  if(!choices.includes(w))choices.push(w);
+ }
+ choices.sort(()=>Math.random()-.5);
+ const box=document.getElementById("options");
+ box.innerHTML="";
+ choices.forEach(choice=>{
+  const b=document.createElement("button");
+  b.className="option";
+  b.textContent=choice;
+  b.onclick=()=>answer(b,choice);
+  box.appendChild(b);
+ });
 }
 
-// STORAGE
-
-function saveData() {
-  localStorage.setItem("learned", JSON.stringify(learned));
-  localStorage.setItem("score", score);
-
-  document.getElementById("learned").textContent =
-    learned.length;
-
-  document.getElementById("score").textContent = score;
-
-  updateProgress();
+function answer(button,choice){
+ if(answered)return;
+ answered=true;
+ total++;
+ const right=choice===current[1];
+ if(right){
+  score++;
+  document.getElementById("feedback").textContent="✓ Correct! Goed gedaan!";
+ }else{
+  document.getElementById("feedback").textContent=
+  "✗ Correct answer: "+current[1];
+ }
+ document.querySelectorAll(".option").forEach(b=>{
+  if(b.textContent===current[1])b.classList.add("correct");
+  else if(b===button)b.classList.add("wrong");
+  b.disabled=true;
+ });
+ save();
 }
 
-function resetProgress() {
-  if (!confirm("Are you sure you want to reset your progress?")) {
-    return;
-  }
-
-  learned = [];
-  score = 0;
-
-  saveData();
+function showPhrases(){
+ const box=document.getElementById("phraseList");
+ box.innerHTML="";
+ phrases.forEach(p=>{
+  const item=document.createElement("div");
+  item.className="item";
+  const en=document.createElement("div");
+  en.textContent=p[0];
+  const nl=document.createElement("strong");
+  nl.textContent=p[1];
+  const btn=document.createElement("button");
+  btn.className="action secondary";
+  btn.textContent="🔊 Listen";
+  btn.onclick=()=>speak(p[1]);
+  item.append(en,nl,btn);
+  box.appendChild(item);
+ });
 }
 
-// START
+function tab(name,button){
+ ["learn","quiz","phrases","progress"].forEach(id=>{
+  document.getElementById(id).classList.toggle("hidden",id!==name);
+ });
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ if(name==="quiz")newQuiz();
+ if(name==="phrases")showPhrases();
+ if(name==="progress")updateProgress();
+}
+
+function updateProgress(){
+ const pct=Math.round(learned.length/words.length*100);
+ document.getElementById("progressWords").textContent=learned.length+" / "+words.length;
+ document.getElementById("fill").style.width=pct+"%";
+ document.getElementById("percent").textContent=pct+"% completed";
+ document.getElementById("total").textContent=total;
+ document.getElementById("correct").textContent=score;
+}
+
+function resetData(){
+ if(!confirm("Reset all learning progress?"))return;
+ learned=[];
+ score=0;
+ total=0;
+ save();
+}
 
 displayWord();
-saveData();
-
+updateStats();
 </script>
-
 </body>
 </html>
