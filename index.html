@@ -1,0 +1,534 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutch Learning</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f5fa;
+  color: #20243a;
+}
+
+header {
+  background: #243b65;
+  color: white;
+  padding: 24px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 8px;
+}
+
+.container {
+  max-width: 750px;
+  margin: 25px auto;
+  padding: 15px;
+}
+
+.stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  flex: 1;
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  font-size: 25px;
+  color: #243b65;
+  margin-top: 5px;
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+nav button {
+  flex: 1;
+  padding: 13px 5px;
+  border: none;
+  border-radius: 9px;
+  background: #dce3f0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+nav button.active {
+  background: #243b65;
+  color: white;
+}
+
+.card {
+  background: white;
+  padding: 35px 20px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 15px #0000000b;
+}
+
+.english {
+  color: #777;
+  font-size: 17px;
+}
+
+.dutch {
+  font-size: 34px;
+  font-weight: bold;
+  margin: 20px 0;
+  color: #243b65;
+}
+
+button {
+  font-family: inherit;
+}
+
+.action {
+  border: none;
+  border-radius: 9px;
+  padding: 13px 20px;
+  background: #243b65;
+  color: white;
+  cursor: pointer;
+  margin: 5px;
+  font-size: 15px;
+}
+
+.action:hover {
+  opacity: .85;
+}
+
+.secondary {
+  background: #e7ebf3;
+  color: #243b65;
+}
+
+.hidden {
+  display: none;
+}
+
+.options {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.option {
+  padding: 15px;
+  border: 2px solid #dce3f0;
+  background: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.option:hover {
+  border-color: #243b65;
+}
+
+.correct {
+  background: #d9f5df;
+  border-color: #35a853;
+}
+
+.wrong {
+  background: #ffe0e0;
+  border-color: #e04c4c;
+}
+
+#feedback {
+  font-weight: bold;
+  margin: 18px;
+}
+
+.progress-bar {
+  background: #dce3f0;
+  height: 10px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #35a853;
+  width: 0%;
+  transition: width .3s;
+}
+
+footer {
+  text-align: center;
+  color: #888;
+  padding: 25px;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🇳🇱 Dutch Learning</h1>
+  <p>Learn Dutch step by step</p>
+</header>
+
+<div class="container">
+
+  <div class="stats">
+    <div class="stat">
+      Words learned
+      <strong id="learned">0</strong>
+    </div>
+    <div class="stat">
+      Quiz score
+      <strong id="score">0</strong>
+    </div>
+  </div>
+
+  <nav>
+    <button class="active" onclick="showTab('learn',this)">
+      Learn
+    </button>
+    <button onclick="showTab('quiz',this)">
+      Quiz
+    </button>
+    <button onclick="showTab('progress',this)">
+      Progress
+    </button>
+  </nav>
+
+  <!-- LEARNING -->
+
+  <section id="learn">
+
+    <div class="card">
+      <p class="english">English word</p>
+      <div class="dutch" id="word">Hello</div>
+      <p id="translation" class="hidden">
+        Dutch translation: Hallo
+      </p>
+
+      <button class="action" onclick="reveal()">
+        Show translation
+      </button>
+
+      <button class="action secondary" onclick="speak()">
+        🔊 Listen
+      </button>
+
+      <div style="margin-top:25px">
+        <button class="action secondary" onclick="previousWord()">
+          ← Previous
+        </button>
+        <button class="action" onclick="nextWord()">
+          Next →
+        </button>
+      </div>
+
+      <p id="counter"></p>
+    </div>
+
+  </section>
+
+  <!-- QUIZ -->
+
+  <section id="quiz" class="hidden">
+
+    <div class="card">
+      <h2>Choose the correct translation</h2>
+
+      <p class="english">What is the Dutch word for:</p>
+
+      <div class="dutch" id="question">Hello</div>
+
+      <div class="options" id="options"></div>
+
+      <p id="feedback"></p>
+
+      <button class="action" onclick="nextQuestion()">
+        Next question →
+      </button>
+    </div>
+
+  </section>
+
+  <!-- PROGRESS -->
+
+  <section id="progress" class="hidden">
+
+    <div class="card">
+      <h2>Your learning progress</h2>
+
+      <p>Vocabulary completed</p>
+      <h2 id="progressText">0 / 20</h2>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <p id="percentage">0% completed</p>
+
+      <button class="action secondary"
+        onclick="resetProgress()">
+        Reset progress
+      </button>
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+  Dutch Learning App · English → Dutch · A1
+</footer>
+
+<script>
+
+// VOCABULARY
+
+const words = [
+  {en:"Hello", nl:"Hallo"},
+  {en:"Good morning", nl:"Goedemorgen"},
+  {en:"Good evening", nl:"Goedenavond"},
+  {en:"Goodbye", nl:"Tot ziens"},
+  {en:"Thank you", nl:"Dank je"},
+  {en:"Please", nl:"Alsjeblieft"},
+  {en:"Yes", nl:"Ja"},
+  {en:"No", nl:"Nee"},
+  {en:"Water", nl:"Water"},
+  {en:"Food", nl:"Eten"},
+  {en:"House", nl:"Huis"},
+  {en:"Car", nl:"Auto"},
+  {en:"Book", nl:"Boek"},
+  {en:"Friend", nl:"Vriend"},
+  {en:"Family", nl:"Familie"},
+  {en:"Work", nl:"Werk"},
+  {en:"School", nl:"School"},
+  {en:"Dog", nl:"Hond"},
+  {en:"Cat", nl:"Kat"},
+  {en:"Love", nl:"Liefde"}
+];
+
+// SAVED DATA
+
+let learned = JSON.parse(
+  localStorage.getItem("learned") || "[]"
+);
+
+let score = Number(
+  localStorage.getItem("score") || 0
+);
+
+let index = 0;
+let currentQuestion = null;
+let answered = false;
+
+// TABS
+
+function showTab(tab, button) {
+  ["learn","quiz","progress"].forEach(id => {
+    document.getElementById(id)
+      .classList.toggle("hidden", id !== tab);
+  });
+
+  document.querySelectorAll("nav button")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  if (tab === "quiz") nextQuestion();
+  if (tab === "progress") updateProgress();
+}
+
+// FLASHCARDS
+
+function displayWord() {
+  document.getElementById("word").textContent =
+    words[index].en;
+
+  document.getElementById("translation").textContent =
+    "Dutch translation: " + words[index].nl;
+
+  document.getElementById("translation")
+    .classList.add("hidden");
+
+  document.getElementById("counter").textContent =
+    `${index + 1} / ${words.length}`;
+}
+
+function reveal() {
+  document.getElementById("translation")
+    .classList.remove("hidden");
+
+  const dutch = words[index].nl;
+
+  if (!learned.includes(dutch)) {
+    learned.push(dutch);
+    saveData();
+  }
+}
+
+function nextWord() {
+  index = (index + 1) % words.length;
+  displayWord();
+}
+
+function previousWord() {
+  index = (index - 1 + words.length) % words.length;
+  displayWord();
+}
+
+// PRONUNCIATION
+
+function speak() {
+  const text = words[index].nl;
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.lang = "nl-NL";
+  speech.rate = 0.85;
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(speech);
+}
+
+// QUIZ
+
+function nextQuestion() {
+  answered = false;
+
+  currentQuestion =
+    words[Math.floor(Math.random() * words.length)];
+
+  document.getElementById("question").textContent =
+    currentQuestion.en;
+
+  document.getElementById("feedback").textContent = "";
+
+  let choices = [currentQuestion.nl];
+
+  while (choices.length < 4) {
+    const random = words[
+      Math.floor(Math.random() * words.length)
+    ].nl;
+
+    if (!choices.includes(random)) {
+      choices.push(random);
+    }
+  }
+
+  choices.sort(() => Math.random() - 0.5);
+
+  const container = document.getElementById("options");
+  container.innerHTML = "";
+
+  choices.forEach(choice => {
+    const button = document.createElement("button");
+
+    button.className = "option";
+    button.textContent = choice;
+
+    button.onclick = () => checkAnswer(button, choice);
+
+    container.appendChild(button);
+  });
+}
+
+function checkAnswer(button, choice) {
+  if (answered) return;
+
+  answered = true;
+
+  const correct = choice === currentQuestion.nl;
+
+  if (correct) {
+    score++;
+    document.getElementById("feedback").textContent =
+      "✓ Correct! Well done!";
+  } else {
+    document.getElementById("feedback").textContent =
+      "✗ Incorrect. Correct answer: " + currentQuestion.nl;
+  }
+
+  document.querySelectorAll(".option").forEach(option => {
+    if (option.textContent === currentQuestion.nl) {
+      option.classList.add("correct");
+    } else if (option === button) {
+      option.classList.add("wrong");
+    }
+    option.disabled = true;
+  });
+
+  saveData();
+}
+
+// PROGRESS
+
+function updateProgress() {
+  const amount = learned.length;
+  const percent = Math.round(
+    amount / words.length * 100
+  );
+
+  document.getElementById("progressText").textContent =
+    `${amount} / ${words.length}`;
+
+  document.getElementById("progressFill").style.width =
+    percent + "%";
+
+  document.getElementById("percentage").textContent =
+    percent + "% completed";
+}
+
+// STORAGE
+
+function saveData() {
+  localStorage.setItem("learned", JSON.stringify(learned));
+  localStorage.setItem("score", score);
+
+  document.getElementById("learned").textContent =
+    learned.length;
+
+  document.getElementById("score").textContent = score;
+
+  updateProgress();
+}
+
+function resetProgress() {
+  if (!confirm("Are you sure you want to reset your progress?")) {
+    return;
+  }
+
+  learned = [];
+  score = 0;
+
+  saveData();
+}
+
+// START
+
+displayWord();
+saveData();
+
+</script>
+
+</body>
+</html>
